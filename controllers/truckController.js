@@ -15,8 +15,14 @@ const createTruck = async (req, res) => {
   res.redirect(`/foodtruck/${truck.slug}`);
 };
 
+const getTrucks = async (req, res) => {
+  const trucks = await truckHandler.getAllTrucks();
+  res.render("trucks", { title: "All Trucks", trucks });
+};
+
 export default {
   homePage,
   addTruck,
   createTruck,
+  getTrucks,
 };

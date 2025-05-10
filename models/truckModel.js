@@ -13,6 +13,7 @@ const truckSchema = mongoose.Schema({
   description: {
     type: String,
     trim: true,
+    maxlength: [100, "description is too long"],
   },
   tags: [String],
 });

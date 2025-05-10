@@ -1,0 +1,13 @@
+<div>
+  <img
+    src="/images/<%= truck.photo || 'truck_default.svg' %>"
+    alt="food truck"
+    height="150"
+  />
+  <h2><%= truck.name %></h2>
+  <button>Soon</button>
+  <p>Desc: <%= truck.description %></p>
+  <p>Tags: <%= truck.tags %></p>
+  <a href="<%= truck.slug %>">Details</a>
+  <hr />
+</div>
