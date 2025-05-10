@@ -2,8 +2,10 @@ import dotenv from "dotenv";
 dotenv.config();
 import { connect } from "./connect.js";
 console.log("connect.js loaded");
+
 // TODO: import all models here
 import "./models/userModel.js";
+import "./models/truckModel.js";
 
 // Connect to MongoDB
 try {
