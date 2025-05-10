@@ -11,7 +11,7 @@ const addTruck = (req, res) => {
 const createTruck = async (req, res) => {
   const truckData = req.body;
   await truckHandler.createTruck(truckData);
-  res.json(req.body);
+  res.redirect("/");
 };
 
 export default {
