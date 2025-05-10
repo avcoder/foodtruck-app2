@@ -2,7 +2,14 @@ import fs from "fs";
 import * as datefns from "date-fns"; // library that displays dates nicely
 
 // handy to console log when debugging
-const dump = (obj) => JSON.stringify(obj, null, 2);
+const dump = (obj) => {
+  if (Object.keys(obj).length === 0) {
+    console.log("Empty object");
+    return;
+  }
+  return JSON.stringify(obj, null, 2);
+};
+
 const staticMap = ([lat, lng]) => `${lat},${lng}`;
 
 // insert svg icon

@@ -6,9 +6,10 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 import passport from "passport";
+import flash from "connect-flash";
 import utils from "./utils/utils.js";
 import { router } from "./routes/router.js";
-import { notFound } from "./handlers/errorHandlers.js";
+import { notFound, flashValidationErrors } from "./handlers/errorHandlers.js";
 import "./handlers/passport.js";
 
 // create express app
@@ -44,13 +45,18 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(flash());
+
 app.use((req, res, next) => {
   res.locals.u = utils;
   res.locals.user = req.user || null; // if user is logged in, req.user will be set
   res.locals.currentPath = req.path; // current path (ex: /trucks)
+  res.locals.flashes = req.flash(); // flash messages (ex: success, error, info)
   next();
 });
 
 app.use("/", router);
 
 app.use(notFound);
+
+app.use(flashValidationErrors); // flash validation errors

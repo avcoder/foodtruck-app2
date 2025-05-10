@@ -10,8 +10,9 @@ const addTruck = (req, res) => {
 
 const createTruck = async (req, res) => {
   const truckData = req.body;
-  await truckHandler.createTruck(truckData);
-  res.redirect("/");
+  const truck = await truckHandler.createTruck(truckData);
+  req.flash("success", `/${truck.slug} added successfully!`);
+  res.redirect(`/foodtruck/${truck.slug}`);
 };
 
 export default {
