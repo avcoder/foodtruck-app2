@@ -6,6 +6,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import cookieParser from "cookie-parser";
 import passport from "passport";
+import utils from "./utils/utils.js";
 import { router } from "./routes/router.js";
 import "./handlers/passport.js";
 
@@ -41,5 +42,12 @@ app.use(
 // Passport is what we use to handle our logins
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use((req, res, next) => {
+  res.locals.u = utils;
+  res.locals.user = req.user || null; // if user is logged in, req.user will be set
+  res.locals.currentPath = req.path; // current path (ex: /trucks)
+  next();
+});
 
 app.use("/", router);
