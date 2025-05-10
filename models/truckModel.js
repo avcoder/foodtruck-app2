@@ -27,4 +27,4 @@ truckSchema.pre("save", function (next) {
   next();
 });
 
-export default mongoose.model("truck", truckSchema);
+export default mongoose.model("Truck", truckSchema);
