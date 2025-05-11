@@ -24,6 +24,16 @@ app.set("views", path.join(__dirname, "views")); // views folder is where we kee
 // Any files in public/ will be served as is (ex: images, css, etc.)
 app.use(express.static(path.join(__dirname, "public")));
 
+// Bootstrap
+app.use(
+  "/css",
+  express.static(path.join(__dirname, "node_modules/bootswatch/dist/sketchy"))
+);
+app.use(
+  "/js",
+  express.static(path.join(__dirname, "node_modules/bootstrap/dist/js"))
+);
+
 // takes raw requests and sticks them onto req.body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded

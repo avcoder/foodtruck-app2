@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%= title %></title>
-  </head>
-  <body>
-    <mark><%= u.dump(flashes) %></mark>
-    <h1><%= title %></h1>
-    <p><%= currentPath %></p>
-    <p><%= u.siteName %></p>
-    <p><%- u.icon("zap") %></p>
-    <p><%- u.dump(u.menu) %></p>
-    <p><%- u.datefns.format(new Date(), "'Today is a ' eeee") %></p>
-  </body>
-</html>
+<%- include('./partials/header.ejs', { title }) %>
+
+<div class="container mt-5 mb-5">
+  <mark><%= u.dump(flashes) %></mark>
+  <h1><%= title %></h1>
+  <p><%= currentPath %></p>
+  <p><%= u.siteName %></p>
+  <p><%- u.icon("zap") %></p>
+  <p><%- u.dump(u.menu) %></p>
+  <p><%- u.datefns.format(new Date(), "'Today is a ' eeee") %></p>
+</div>
+
+<%- include('./partials/footer.ejs') %>

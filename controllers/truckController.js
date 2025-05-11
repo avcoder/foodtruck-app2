@@ -1,7 +1,7 @@
 import truckHandler from "../handlers/truckHandler.js";
 
 const homePage = (req, res) => {
-  res.render("home", { title: "🌮 Welcome to Taco Food Truck! 🚚" });
+  res.render("home", { title: "Welcome to FoodTrucks!" });
 };
 
 const addTruck = (req, res) => {

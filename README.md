@@ -3,3 +3,4 @@
 - `npm i -D nodemon`
 - `npm i github-slugger`
 - `npm i connect-flash`
+- `npm install bootstrap@5.3.6`
