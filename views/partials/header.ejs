@@ -16,7 +16,7 @@
       data-bs-theme="dark"
     >
       <div class="container">
-        <a class="navbar-brand" href="#">🚚 FoodTrucks</a>
+        <a class="navbar-brand" href="/">🚚 FoodTrucks</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -29,22 +29,16 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarColor01">
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item">
-              <a class="nav-link active" href="#"
-                >Home
-                <span class="visually-hidden">(current)</span>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
+          <ul class="navbar-nav ms-auto">
+            <% u.menu.map( menuItem => { %> 
+              <li class="nav-item">
+                <a class="nav-link" href="<%= menuItem.slug %>">
+                  <span class="me-1 ms-3"><%- u.icon(menuItem.icon) %></span>
+                  <%= menuItem.title %> 
+                  <!-- <span class="visually-hidden">(current)</span> -->
+                </a>
+              </li>  
+            <% }) %>
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -53,7 +47,7 @@
                 role="button"
                 aria-haspopup="true"
                 aria-expanded="false"
-                >Dropdown</a
+                ><span class="me-1 ms-3"><%- u.icon("user") %></span>Account</a
               >
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="#">Action</a>
@@ -64,7 +58,14 @@
               </div>
             </li>
           </ul>
-          <form class="d-flex">
+        </div>
+      </div>
+    </nav>
+
+    <div class="mt-5 py-4 mb-4 bg-dark-subtle">
+      <div class="container">
+        <div class="row">
+          <form class="col-lg-3 col-md-6 col-sm-12 d-flex">
             <input
               class="form-control me-sm-2"
               type="search"
@@ -76,4 +77,4 @@
           </form>
         </div>
       </div>
-    </nav>
+    </div>
