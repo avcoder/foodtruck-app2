@@ -10,7 +10,7 @@ const dump = (obj) => {
   return JSON.stringify(obj, null, 2);
 };
 
-const staticMap = ([lat, lng]) => `${lat},${lng}`;
+const embedMap = ([lat, lng]) => `https://www.google.com/maps?q=${lat},${lng}&z=14&output=embed`;
 
 // insert svg icon
 const icon = (iconName) => fs.readFileSync(`./public/icons/${iconName}.svg`);
@@ -30,24 +30,24 @@ const menu = [
   {
     slug: "/top",
     title: "Top",
-    icon: "top",
+    icon: "award",
   },
   {
     slug: "/add",
     title: "Add",
-    icon: "add",
+    icon: "plus-circle",
   },
   {
     slug: "/map",
     title: "Map",
-    icon: "map",
-  },
+    icon: "map-pin",
+  }
 ];
 
 export default {
   datefns,
   dump,
-  staticMap,
+  embedMap,
   icon,
   siteName,
   menu,
