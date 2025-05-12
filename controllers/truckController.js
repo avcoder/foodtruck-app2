@@ -5,7 +5,16 @@ const homePage = (req, res) => {
 };
 
 const addTruck = (req, res) => {
-  res.render("addTruck", { title: "Add Store" });
+  res.render("addTruck", {
+    title: "Add Store",
+    choices: [
+      "Cash only",
+      "Debit only",
+      "Online ordering",
+      "Corporate lunches",
+      "Vegetarian",
+    ],
+  });
 };
 
 const createTruck = async (req, res) => {
