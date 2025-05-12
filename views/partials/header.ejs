@@ -37,8 +37,20 @@
                   <%= menuItem.title %> 
                   <!-- <span class="visually-hidden">(current)</span> -->
                 </a>
-              </li>  
-            <% }) %>
+              </li> 
+            <% }) %> 
+            <li class="nav-item">
+              <a class="nav-link" href="/register">
+                <span class="me-1 ms-3"><%- u.icon("user-plus") %></span>
+                Register 
+              </a>
+            </li>  
+            <li class="nav-item">
+              <a class="nav-link" href="/login">
+                <span class="me-1 ms-3"><%- u.icon("log-in") %></span>
+                Login 
+              </a>
+            </li>  
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"

@@ -41,7 +41,7 @@ const menu = [
     slug: "/map",
     title: "Map",
     icon: "map-pin",
-  }
+  },
 ];
 
 export default {
