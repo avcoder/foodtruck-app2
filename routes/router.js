@@ -7,8 +7,11 @@ router.get("/", catchErrors(truckController.homePage));
 
 // TRUCKS
 router.get("/trucks", catchErrors(truckController.getTrucks));
-router.get("/trucks/:id/edit", catchErrors(truckController.editTruck));
 
 // ADD TRUCK
 router.get("/add", truckController.addTruck);
 router.post("/add", catchErrors(truckController.createTruck));
+
+// EDIT TRUCK
+router.get("/trucks/:id/edit", truckController.editTruck);
+router.post("/trucks/:id/edit", catchErrors(truckController.updateTruck));

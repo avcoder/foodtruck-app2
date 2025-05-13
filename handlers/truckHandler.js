@@ -9,7 +9,21 @@ const createTruck = async (truckData) => {
   return await Truck.create(truckData);
 };
 
+const getOneTruck = async ({ id }) => {
+  return await Truck.findOne({ _id: id }).lean();
+};
+
+const updateTruck = async (id, truckData) => {
+  return await Truck.findOneAndUpdate(
+    { _id: id },
+    truckData,
+    { new: true, runValidators: true }
+  ).lean();
+}
+
 export default {
   getAllTrucks,
   createTruck,
+  getOneTruck,
+  updateTruck
 };
