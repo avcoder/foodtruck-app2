@@ -30,27 +30,27 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarColor01">
           <ul class="navbar-nav ms-auto">
-            <% u.menu.map( menuItem => { %> 
-              <li class="nav-item">
-                <a class="nav-link" href="<%= menuItem.slug %>">
-                  <span class="me-1 ms-3"><%- u.icon(menuItem.icon) %></span>
-                  <%= menuItem.title %> 
-                  <!-- <span class="visually-hidden">(current)</span> -->
-                </a>
-              </li> 
-            <% }) %> 
+            <% u.menu.map( menuItem => { %>
+            <li class="nav-item">
+              <a class="nav-link" href="<%= menuItem.slug %>">
+                <span class="me-1 ms-3"><%- u.icon(menuItem.icon) %></span>
+                <%= menuItem.title %>
+                <!-- <span class="visually-hidden">(current)</span> -->
+              </a>
+            </li>
+            <% }) %>
             <li class="nav-item">
               <a class="nav-link" href="/register">
                 <span class="me-1 ms-3"><%- u.icon("user-plus") %></span>
-                Register 
+                Register
               </a>
-            </li>  
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="/login">
                 <span class="me-1 ms-3"><%- u.icon("log-in") %></span>
-                Login 
+                Login
               </a>
-            </li>  
+            </li>
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -90,3 +90,15 @@
         </div>
       </div>
     </div>
+
+    <% const categories = Object.keys(flashes) %>
+      <% categories.map((category) => { %>
+        <div class="container">
+          <% flashes[category].map((message) => { %>
+            <div class="alert alert-<%= category %> alert-dismissible" role="alert">
+              <%- message %>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          <% }) %>
+        </div>
+    <% }) %>

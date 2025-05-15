@@ -19,5 +19,10 @@
     "prefix": "ejs",
     "body": ["<%$0 %>"],
     "description": "EJS escaped tags"
-  }
+  },
+  "EJS template 2": {
+    "prefix": "ejs2",
+    "body": ["<% trucks.map(truck => { %>", "<%- include('./components/truck.ejs', { truck }) %>", "<% }) %>"],
+    "description": "EJS escaped tags"
+  },
 }
