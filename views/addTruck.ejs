@@ -42,12 +42,15 @@
         <label for="location" class="form-label">Location</label>
         <input
           type="text"
-          class="form-control"
+          class="form-control dropdown-toggle"
           id="location"
           aria-describedby="location"
           name="location[address]"
+          data-bs-toggle="dropdown"
         />
+        <ul class="dropdown-menu col-3" id="suggestions"></ul>
       </div>
+    
 
       <div class="my-3 row d-flex">
         <div class="col">
@@ -77,4 +80,8 @@
   </div>
 </div>
 
-<%- include('./partials/footer.ejs') %>
+<%- include('./partials/footeropen.ejs') %>
+
+<script type="module" src="/modules/autocomplete.js"></script>
+
+<%- include('./partials/footerclose.ejs') %>

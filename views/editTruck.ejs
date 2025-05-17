@@ -1,7 +1,7 @@
 <%- include('./partials/header.ejs', { title }) %>
 
 <div class="container my-5 pb-5">
-  <div class="row justify-content-center">
+  <div class="d-flex justify-content-around">
     <form action="/trucks/<%- truck._id %>/edit" method="POST" class="col-4">
       <h2 class="mb-5"><%= title %></h2>
 
@@ -41,17 +41,60 @@
         <label for="location" class="form-label">Location</label>
         <input
           type="text"
-          class="form-control"
+          class="form-control dropdown-toggle"
           id="location"
           aria-describedby="location"
-          name="location"
+          name="location[address]"
+          data-bs-toggle="dropdown"
           value="<%= truck.location?.address %>"
         />
+        <ul class="dropdown-menu col-3" id="suggestions"></ul>
+      </div>
+
+      <div class="my-3 row d-flex">
+        <div class="col">
+          <label for="latitude" class="form-label">Latitude</label>
+          <input
+            type="text"
+            class="form-control"
+            id="latitude"
+            aria-describedby="latitude"
+            name="location[coordinates][1]]"
+            value="<%= truck.location?.coordinates?.[1] %>"
+          />
+        </div>
+        <div class="col">
+          <label for="longitude" class="form-label">Longitude</label>
+          <input
+            type="text"
+            class="form-control"
+            id="longitude"
+            aria-describedby="longitude"
+            name="location[coordinates][0]]"
+            value="<%= truck.location?.coordinates?.[0] %>"
+          />
+        </div>
       </div>
 
       <button type="submit" class="btn btn-success w-100">Save</button>
     </form>
+
+    <div>
+      <iframe
+        width="600"
+        height="450"
+        style="border:0"
+        loading="lazy"
+        allowfullscreen
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps?q=37.7749,-122.4194&z=15&output=embed">
+      </iframe>
+    </div>
   </div>
 </div>
 
-<%- include('./partials/footer.ejs') %>
+<%- include('./partials/footeropen.ejs') %>
+
+<script type="module" src="/modules/autocomplete.js"></script>
+
+<%- include('./partials/footerclose.ejs') %>

@@ -49,6 +49,7 @@ const getTrucks = async (req, res) => {
 };
 
 const updateTruck = async (req, res) => {
+  req.body.location.type = "Point"; // set the location type to Point
   const id = req.params.id;
   const truckData = req.body;
   const truck = await truckHandler.updateTruck(id, truckData);
