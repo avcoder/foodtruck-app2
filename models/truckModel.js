@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import GithubSlugger from "github-slugger";
+import { type } from "os";
 
 const slugger = new GithubSlugger();
 
@@ -16,26 +17,22 @@ const truckSchema = mongoose.Schema({
     maxlength: [100, "description is too long"],
   },
   tags: [String],
-  created: {
-    type: Date,
-    default: Date.now,
-  },
+
   location: {
     type: {
       type: String,
       default: "Point",
     },
-    coordinates: [Number],
-    timestamp: {
-      type: Date,
-      default: Date.now,
-    },
+    coordinates: [{
+      type: Number,
+      required: [true, "latitude and/or longitude are required"],
+    }],
     address: {
       type: String,
       required: [true, "address is required"],
     },
   },
-});
+} , { timestamps: true });
 
 truckSchema.pre("save", function (next) {
   if (!this.isModified("name")) {

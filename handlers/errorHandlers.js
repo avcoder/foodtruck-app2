@@ -15,5 +15,5 @@ export const flashValidationErrors = (err, req, res, next) => {
 
   const errorKeys = Object.keys(err.errors);
   errorKeys.forEach((key) => req.flash("danger", err.errors[key].message));
-  res.redirect("back");
+  res.redirect(req.get("referer") || "/"); // res.redirect('back') won't work due to helmet
 };

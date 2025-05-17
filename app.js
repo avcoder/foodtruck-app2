@@ -68,5 +68,5 @@ app.use((req, res, next) => {
 app.use("/", router);
 
 app.use(notFound);
-
 app.use(flashValidationErrors); // flash validation errors
+
