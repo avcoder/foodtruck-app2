@@ -16,6 +16,25 @@ const truckSchema = mongoose.Schema({
     maxlength: [100, "description is too long"],
   },
   tags: [String],
+  created: {
+    type: Date,
+    default: Date.now,
+  },
+  location: {
+    type: {
+      type: String,
+      default: "Point",
+    },
+    coordinates: [Number],
+    timestamp: {
+      type: Date,
+      default: Date.now,
+    },
+    address: {
+      type: String,
+      required: [true, "address is required"],
+    },
+  },
 });
 
 truckSchema.pre("save", function (next) {

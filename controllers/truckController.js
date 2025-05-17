@@ -1,20 +1,22 @@
 import truckHandler from "../handlers/truckHandler.js";
 
+const CHOICES = [
+  "Cash only",
+  "Debit only",
+  "Online ordering",
+  "Corporate lunches",
+  "Vegetarian",
+];
+
 const homePage = async (req, res) => {
   const trucks = await truckHandler.getAllTrucks();
   res.render("home", { title: "Welcome to FoodTruck Empire", trucks });
 };
 
-const addTruck = (req, res) => {
+const addTruck = async (req, res) => {
   res.render("addTruck", {
     title: "Add Store",
-    choices: [
-      "Cash only",
-      "Debit only",
-      "Online ordering",
-      "Corporate lunches",
-      "Vegetarian",
-    ],
+    choices: CHOICES,
   });
 };
 
@@ -27,14 +29,18 @@ const editTruck = async (req, res) => {
     title: `Edit ${truck.name}`,
     truck,
     tags: truck.tags,
+    choices: CHOICES,
   });
 };
 
 const createTruck = async (req, res) => {
   const truckData = req.body;
+  console.log("Creating truck with data:", truckData);
   const truck = await truckHandler.createTruck(truckData);
+  console.log("Truck created:", truck);
   req.flash("success", `/${truck.slug} added successfully!`);
-  res.redirect(`/foodtruck/${truck.slug}`);
+  // res.redirect(`/foodtruck/${truck.slug}`);
+  res.redirect('/')
 };
 
 const getTrucks = async (req, res) => {
@@ -46,9 +52,12 @@ const updateTruck = async (req, res) => {
   const id = req.params.id;
   const truckData = req.body;
   const truck = await truckHandler.updateTruck(id, truckData);
-  req.flash("success", `<a href="/trucks/${truck.slug}">${truck.name} updated successfully!</a>`);
+  req.flash(
+    "success",
+    `<a href="/trucks/${truck.slug}">${truck.name} updated successfully!</a>`
+  );
   res.redirect(`/trucks/${truck._id}/edit`);
-}
+};
 
 export default {
   homePage,
@@ -56,5 +65,5 @@ export default {
   editTruck,
   createTruck,
   getTrucks,
-  updateTruck
+  updateTruck,
 };
