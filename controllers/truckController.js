@@ -1,4 +1,52 @@
 import truckHandler from "../handlers/truckHandler.js";
+import multer from "multer";
+import { Jimp } from "jimp";
+import { v4 as uuidv4 } from "uuid";
+
+
+// need to specify where uploads go, and what file types are allowed
+const multerOptions = {
+  storage: multer.memoryStorage(),
+  fileFilter: (req, file, next) => {
+    const isPhoto = file.mimetype.startsWith("image/");
+
+    if (isPhoto) {
+      next(null, true); // it's fine continue on, no error here
+    } else {
+      next({ message: "⚡ That file type isn't allowed!"}, false);
+    }
+  },
+};
+
+// store photo in memory of server
+const upload = multer(multerOptions).single("photo"); 
+
+const resize = async (req, res, next) => {
+  // check if there no is a file to resize
+  if (!req.file) {
+    return next(); // skip to the next middleware
+
+  }
+  // console.log(req.file);
+  const extension = req.file.mimetype.split("/")[1]; // get the file extension
+  req.body.photo = `${uuidv4()}.${extension}`; // create a unique filename
+
+  // resize the image
+  const photo = await Jimp.read(req.file.buffer);
+  console.log('photo: ', photo);
+  if (photo.bitmap.width > 400) {
+    console.log(5);
+    await photo.resize(400, Jimp.AUTO); // width x height
+  }
+  await photo.write(`./public/uploads/${req.body.photo}`); // save the image to disk
+console.log(6);
+  next(); // continue on to the next middleware
+};
+
+const homePage = async (req, res) => {
+  const trucks = await truckHandler.getAllTrucks();
+  res.render("home", { title: "Welcome to FoodTruck Empire", trucks });
+};
 
 const CHOICES = [
   "Cash only",
@@ -7,11 +55,6 @@ const CHOICES = [
   "Corporate lunches",
   "Vegetarian",
 ];
-
-const homePage = async (req, res) => {
-  const trucks = await truckHandler.getAllTrucks();
-  res.render("home", { title: "Welcome to FoodTruck Empire", trucks });
-};
 
 const addTruck = async (req, res) => {
   res.render("addTruck", {
@@ -38,7 +81,7 @@ const createTruck = async (req, res) => {
   console.log("Creating truck with data:", truckData);
   const truck = await truckHandler.createTruck(truckData);
   console.log("Truck created:", truck);
-  req.flash("success", `/${truck.slug} added successfully!`);
+  req.flash("success", `<a href="/trucks/${truck.slug}">${truck.name} added successfully!</a>`);
   // res.redirect(`/foodtruck/${truck.slug}`);
   res.redirect('/')
 };
@@ -67,4 +110,6 @@ export default {
   createTruck,
   getTrucks,
   updateTruck,
+  upload,
+  resize,
 };

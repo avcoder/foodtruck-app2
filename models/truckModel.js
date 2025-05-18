@@ -32,6 +32,7 @@ const truckSchema = mongoose.Schema({
       required: [true, "address is required"],
     },
   },
+  photo: String,
 } , { timestamps: true });
 
 truckSchema.pre("save", function (next) {

@@ -2,7 +2,7 @@
 
 <div class="container my-5 pb-5">
   <div class="d-flex justify-content-around">
-    <form action="/trucks/<%- truck._id %>/edit" method="POST" class="col-4">
+    <form action="/trucks/<%- truck._id %>/edit" method="POST" class="col-4" enctype="multipart/form-data">
       <h2 class="mb-5"><%= title %></h2>
 
       <div class="mb-3">
@@ -38,6 +38,18 @@
       </div>
 
       <div class="mb-3">
+        <label for="photo" class="form-label">Photo</label>
+        <input
+          type="file"
+          class="form-control"
+          id="photo"
+          aria-describedby="photo"
+          name="photo"
+          accept="image/png, image/jpeg, image/jpg"
+        />
+      </div>  
+
+      <div class="mb-3">
         <label for="location" class="form-label">Location</label>
         <input
           type="text"
@@ -59,7 +71,7 @@
             class="form-control"
             id="latitude"
             aria-describedby="latitude"
-            name="location[coordinates][1]]"
+            name="location[coordinates][1]"
             value="<%= truck.location?.coordinates?.[1] %>"
           />
         </div>
@@ -70,7 +82,7 @@
             class="form-control"
             id="longitude"
             aria-describedby="longitude"
-            name="location[coordinates][0]]"
+            name="location[coordinates][0]"
             value="<%= truck.location?.coordinates?.[0] %>"
           />
         </div>
@@ -80,15 +92,20 @@
     </form>
 
     <div>
-      <iframe
-        width="600"
-        height="450"
-        style="border:0"
-        loading="lazy"
-        allowfullscreen
-        referrerpolicy="no-referrer-when-downgrade"
-        src="https://www.google.com/maps?q=37.7749,-122.4194&z=15&output=embed">
-      </iframe>
+      <div class="mb-5">
+        <img src="/uploads/<%= truck.photo || 'truck_default.svg' %>" alt="<%= truck.name %>">
+      </div>
+      <div>
+        <iframe
+          width="600"
+          height="400"
+          style="border:0"
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=37.7749,-122.4194&z=15&output=embed">
+        </iframe>
+      </div>
     </div>
   </div>
 </div>
