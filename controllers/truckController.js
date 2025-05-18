@@ -67,7 +67,7 @@ const editTruck = async (req, res) => {
   // 1. Find the store given the ID
   // 2. Confirm they are owner of truck
   // 3. Render out the edit form so user can update their truck
-  const truck = await truckHandler.getOneTruck({ id: req.params.id });
+  const truck = await truckHandler.getOneTruckById({ id: req.params.id });
   res.render("editTruck", {
     title: `Edit ${truck.name}`,
     truck,
@@ -81,7 +81,7 @@ const createTruck = async (req, res) => {
   console.log("Creating truck with data:", truckData);
   const truck = await truckHandler.createTruck(truckData);
   console.log("Truck created:", truck);
-  req.flash("success", `<a href="/trucks/${truck.slug}">${truck.name} added successfully!</a>`);
+  req.flash("success", `<a href="/foodtruck/${truck.slug}">${truck.name} added successfully!</a>`);
   // res.redirect(`/foodtruck/${truck.slug}`);
   res.redirect('/')
 };
@@ -98,10 +98,17 @@ const updateTruck = async (req, res) => {
   const truck = await truckHandler.updateTruck(id, truckData);
   req.flash(
     "success",
-    `<a href="/trucks/${truck.slug}">${truck.name} updated successfully!</a>`
+    `<a href="/foodtruck/${truck.slug}">${truck.name} updated successfully!</a>`
   );
   res.redirect(`/trucks/${truck._id}/edit`);
 };
+
+const getTruckBySlug = async (req, res, next) => {
+  const truck = await truckHandler.getOneTruckBySlug({ slug: req.params.slug });
+  if (!truck) return next();
+  
+  res.render("foodtruck", { title: `${truck.name}`, truck });
+} 
 
 export default {
   homePage,
@@ -112,4 +119,5 @@ export default {
   updateTruck,
   upload,
   resize,
+  getTruckBySlug,
 };

@@ -9,9 +9,13 @@ const createTruck = async (truckData) => {
   return await Truck.create(truckData);
 };
 
-const getOneTruck = async ({ id }) => {
+const getOneTruckById = async ({ id }) => {
   return await Truck.findOne({ _id: id }).lean();
 };
+
+const getOneTruckBySlug = async ({ slug }) => {
+  return await Truck.findOne({ slug }).lean();
+}
 
 const updateTruck = async (id, truckData) => {
   return await Truck.findOneAndUpdate(
@@ -24,6 +28,7 @@ const updateTruck = async (id, truckData) => {
 export default {
   getAllTrucks,
   createTruck,
-  getOneTruck,
-  updateTruck
+  getOneTruckById,
+  updateTruck,
+  getOneTruckBySlug,
 };
