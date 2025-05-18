@@ -33,13 +33,10 @@ const resize = async (req, res, next) => {
 
   // resize the image
   const photo = await Jimp.read(req.file.buffer);
-  console.log('photo: ', photo);
   if (photo.bitmap.width > 400) {
-    console.log(5);
     await photo.resize(400, Jimp.AUTO); // width x height
   }
   await photo.write(`./public/uploads/${req.body.photo}`); // save the image to disk
-console.log(6);
   next(); // continue on to the next middleware
 };
 
@@ -78,9 +75,7 @@ const editTruck = async (req, res) => {
 
 const createTruck = async (req, res) => {
   const truckData = req.body;
-  console.log("Creating truck with data:", truckData);
   const truck = await truckHandler.createTruck(truckData);
-  console.log("Truck created:", truck);
   req.flash("success", `<a href="/foodtruck/${truck.slug}">${truck.name} added successfully!</a>`);
   // res.redirect(`/foodtruck/${truck.slug}`);
   res.redirect('/')

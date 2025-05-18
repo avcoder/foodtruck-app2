@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
 import { connect } from "./connect.js";
-console.log("connect.js loaded");
 
 // TODO: import all models here
 import "./models/userModel.js";
@@ -10,10 +9,8 @@ import "./models/truckModel.js";
 // Connect to MongoDB
 try {
   await connect(process.env.DB_CONN);
-  console.log("Connected to MongoDB");
 
   const { app } = await import("./app.js");
-  console.log("app.js loaded");
 
   // Start app
   app.listen(process.env.PORT, () => {

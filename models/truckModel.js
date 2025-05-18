@@ -35,13 +35,22 @@ const truckSchema = mongoose.Schema({
   photo: String,
 } , { timestamps: true });
 
-truckSchema.pre("save", function (next) {
+truckSchema.pre("save", async function (next) {
   if (!this.isModified("name")) {
     next();
     return;
   }
   // TODO: ensure slugs are unique
   this.slug = slugger.slug(this.name);
+
+  // find other stores that may have the same slug
+  const slugRegEx = new RegExp(`^(${this.slug})(-[0-9]+)?$`, 'i');
+  const trucksWithSameSlug = await this.constructor.find({ slug: slugRegEx });
+
+  if (trucksWithSameSlug.length) {
+    this.slug = `${this.slug}-${trucksWithSameSlug.length + 1}`;
+  }
+
   next();
 });
 
