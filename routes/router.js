@@ -24,4 +24,8 @@ router.post("/trucks/:id/edit",
     catchErrors(truckController.updateTruck)
 );
 
+// FOODTRUCK
 router.get("/foodtruck/:slug", catchErrors(truckController.getTruckBySlug));
+
+// TAGS
+router.get("/tags", catchErrors(truckController.getTags));

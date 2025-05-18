@@ -105,6 +105,12 @@ const getTruckBySlug = async (req, res, next) => {
   res.render("foodtruck", { title: `${truck.name}`, truck });
 } 
 
+const getTags = async (req, res) => {
+    const trucks = await truckHandler.getAllTrucks();
+  // const tags = await truckHandler.getAllTags();
+  res.render("tags", { title: "Tags", trucks });
+};
+
 export default {
   homePage,
   addTruck,
@@ -115,4 +121,5 @@ export default {
   upload,
   resize,
   getTruckBySlug,
+  getTags,
 };
