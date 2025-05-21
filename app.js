@@ -10,6 +10,7 @@ import flash from "connect-flash";
 import utils from "./utils/utils.js";
 import { router } from "./routes/router.js";
 import { notFound, flashValidationErrors } from "./handlers/errorHandlers.js";
+import methodOverride from "method-override";
 import "./handlers/passport.js";
 
 // create express app
@@ -37,6 +38,7 @@ app.use(
 // takes raw requests and sticks them onto req.body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(methodOverride("_method"));
 app.use(morgan("dev")); // for logging requests
 app.use(cookieParser()); // parses cookies and sticks them to req.cookies
 
@@ -69,4 +71,3 @@ app.use("/", router);
 
 app.use(notFound);
 app.use(flashValidationErrors); // flash validation errors
-

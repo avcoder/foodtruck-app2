@@ -3,7 +3,6 @@ import multer from "multer";
 import { Jimp } from "jimp";
 import { v4 as uuidv4 } from "uuid";
 
-
 // need to specify where uploads go, and what file types are allowed
 const multerOptions = {
   storage: multer.memoryStorage(),
@@ -13,19 +12,18 @@ const multerOptions = {
     if (isPhoto) {
       next(null, true); // it's fine continue on, no error here
     } else {
-      next({ message: "⚡ That file type isn't allowed!"}, false);
+      next({ message: "⚡ That file type isn't allowed!" }, false);
     }
   },
 };
 
 // store photo in memory of server
-const upload = multer(multerOptions).single("photo"); 
+const upload = multer(multerOptions).single("photo");
 
 const resize = async (req, res, next) => {
   // check if there no is a file to resize
   if (!req.file) {
     return next(); // skip to the next middleware
-
   }
   // console.log(req.file);
   const extension = req.file.mimetype.split("/")[1]; // get the file extension
@@ -76,9 +74,12 @@ const editTruck = async (req, res) => {
 const createTruck = async (req, res) => {
   const truckData = req.body;
   const truck = await truckHandler.createTruck(truckData);
-  req.flash("success", `<a href="/foodtruck/${truck.slug}">${truck.name} added successfully!</a>`);
+  req.flash(
+    "success",
+    `<a href="/foodtruck/${truck.slug}">${truck.name} added successfully!</a>`
+  );
   // res.redirect(`/foodtruck/${truck.slug}`);
-  res.redirect('/')
+  res.redirect("/");
 };
 
 const getTrucks = async (req, res) => {
@@ -101,14 +102,21 @@ const updateTruck = async (req, res) => {
 const getTruckBySlug = async (req, res, next) => {
   const truck = await truckHandler.getOneTruckBySlug({ slug: req.params.slug });
   if (!truck) return next();
-  
+
   res.render("foodtruck", { title: `${truck.name}`, truck });
-} 
+};
 
 const getTags = async (req, res) => {
-    const trucks = await truckHandler.getAllTrucks();
+  const trucks = await truckHandler.getAllTrucks();
   // const tags = await truckHandler.getAllTags();
   res.render("tags", { title: "Tags", trucks });
+};
+
+const deleteTruck = async (req, res) => {
+  const id = req.params.id;
+  const truck = await truckHandler.deleteTruck(id);
+  req.flash("success", `${truck.name} was deleted</a>`);
+  res.redirect("/");
 };
 
 export default {
@@ -122,4 +130,5 @@ export default {
   resize,
   getTruckBySlug,
   getTags,
+  deleteTruck,
 };

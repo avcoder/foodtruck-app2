@@ -15,15 +15,18 @@ const getOneTruckById = async ({ id }) => {
 
 const getOneTruckBySlug = async ({ slug }) => {
   return await Truck.findOne({ slug }).lean();
-}
+};
 
 const updateTruck = async (id, truckData) => {
-  return await Truck.findOneAndUpdate(
-    { _id: id },
-    truckData,
-    { new: true, runValidators: true }
-  ).lean();
-}
+  return await Truck.findOneAndUpdate({ _id: id }, truckData, {
+    new: true,
+    runValidators: true,
+  }).lean();
+};
+
+const deleteTruck = async (id) => {
+  return await Truck.findByIdAndDelete(id).lean();
+};
 
 export default {
   getAllTrucks,
@@ -31,4 +34,5 @@ export default {
   getOneTruckById,
   updateTruck,
   getOneTruckBySlug,
+  deleteTruck,
 };
