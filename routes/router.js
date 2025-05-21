@@ -33,4 +33,5 @@ router.delete("/trucks/:id", truckController.deleteTruck);
 router.get("/foodtruck/:slug", catchErrors(truckController.getTruckBySlug));
 
 // TAGS
-router.get("/tags", catchErrors(truckController.getTags));
+router.get("/tags", catchErrors(truckController.getStoresByTag));
+router.get("/tags/:tag", catchErrors(truckController.getStoresByTag));

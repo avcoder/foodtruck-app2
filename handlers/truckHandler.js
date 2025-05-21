@@ -1,7 +1,7 @@
 import Truck from "../models/truckModel.js";
 
-const getAllTrucks = async () => {
-  return await Truck.find().lean();
+const getAllTrucks = async (filters = {}) => {
+  return await Truck.find(filters).lean();
 };
 
 const createTruck = async (truckData) => {
@@ -28,6 +28,10 @@ const deleteTruck = async (id) => {
   return await Truck.findByIdAndDelete(id).lean();
 };
 
+const getAllTags = async () => {
+  return await Truck.getAllTags();
+};
+
 export default {
   getAllTrucks,
   createTruck,
@@ -35,4 +39,5 @@ export default {
   updateTruck,
   getOneTruckBySlug,
   deleteTruck,
+  getAllTags,
 };

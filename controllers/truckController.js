@@ -106,10 +106,13 @@ const getTruckBySlug = async (req, res, next) => {
   res.render("foodtruck", { title: `${truck.name}`, truck });
 };
 
-const getTags = async (req, res) => {
-  const trucks = await truckHandler.getAllTrucks();
-  // const tags = await truckHandler.getAllTags();
-  res.render("tags", { title: "Tags", trucks });
+const getStoresByTag = async (req, res) => {
+  const activeTag = req.params.tag;
+  const query = activeTag ? { tags: activeTag } : {};
+  const tagsPromise = truckHandler.getAllTags();
+  const trucksPromise = truckHandler.getAllTrucks(query); // or {...(activeTag && { tags: activeTag })}
+  const [tags, trucks] = await Promise.all([tagsPromise, trucksPromise]);
+  res.render("tags", { title: "Tags", trucks, tags, activeTag });
 };
 
 const deleteTruck = async (req, res) => {
@@ -129,6 +132,6 @@ export default {
   upload,
   resize,
   getTruckBySlug,
-  getTags,
+  getStoresByTag,
   deleteTruck,
 };

@@ -1,0 +1,21 @@
+<div class="card m-3 col-6">
+  <div class="row align-items-center px-3">
+    <div class="col-3">
+      <img
+        src="/uploads/<%= truck.photo || 'truck_default.svg' %>"
+        style="height: 70px; width: 70px; object-fit: cover"
+        class="img-fluid rounded-circle"
+        alt="<%= truck.name %>"
+      />
+    </div>
+    <div class="col-7">
+      <div class="card-body">
+        <h5 class="card-title"><%= truck.name %></h5>
+        <p class="card-text"><%= truck.tags.join(', ') %></p>
+      </div>
+    </div>
+    <div class="col-1">
+      <a href="/foodtruck/<%= truck.slug %>" class="btn btn-info">Details</a>
+    </div>
+  </div>
+</div>
