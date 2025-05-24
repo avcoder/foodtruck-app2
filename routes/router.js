@@ -1,5 +1,7 @@
 import { Router } from "express";
 import truckController from "../controllers/truckController.js";
+import userController from "../controllers/userController.js";
+import authController from "../controllers/authController.js";
 import { catchErrors } from "../handlers/errorHandlers.js";
 export const router = Router();
 
@@ -35,3 +37,14 @@ router.get("/foodtruck/:slug", catchErrors(truckController.getTruckBySlug));
 // TAGS
 router.get("/tags", catchErrors(truckController.getStoresByTag));
 router.get("/tags/:tag", catchErrors(truckController.getStoresByTag));
+
+// LOGIN & REGISTER
+router.get("/login", userController.loginForm);
+router.post("/login", authController.login);
+router.get("/reset-password", userController.resetPassword);
+router.get("/register", userController.registerForm);
+router.post(
+  "/register",
+  userController.validateRegister,
+  userController.register
+);
