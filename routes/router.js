@@ -8,10 +8,10 @@ export const router = Router();
 router.get("/", catchErrors(truckController.homePage));
 
 // TRUCKS
-router.get("/trucks", catchErrors(truckController.getTrucks));
+router.get("/trucks", authController.isAuthenticated, catchErrors(truckController.getTrucks));
 
 // ADD TRUCK
-router.get("/add", truckController.addTruck);
+router.get("/add", authController.isAuthenticated, truckController.addTruck);
 router.post(
   "/add",
   truckController.upload,
@@ -20,16 +20,17 @@ router.post(
 );
 
 // EDIT TRUCK
-router.get("/trucks/:id/edit", catchErrors(truckController.editTruck));
+router.get("/trucks/:id/edit", authController.isAuthenticated, catchErrors(truckController.editTruck));
 router.post(
   "/trucks/:id/edit",
+  authController.isAuthenticated,
   truckController.upload,
   catchErrors(truckController.resize),
   catchErrors(truckController.updateTruck)
 );
 
 // DELETE TRUCK
-router.delete("/trucks/:id", truckController.deleteTruck);
+router.delete("/trucks/:id", authController.isAuthenticated, truckController.deleteTruck);
 
 // FOODTRUCK
 router.get("/foodtruck/:slug", catchErrors(truckController.getTruckBySlug));
@@ -48,4 +49,4 @@ router.post(
   userController.validateRegister,
   userController.register
 );
-router.get("/logout", authController.logout);
+router.get("/logout", authController.isAuthenticated, authController.logout);
