@@ -65,9 +65,10 @@ app.use((req, res, next) => {
   res.locals.currentPath = req.path; // current path (ex: /trucks)
   const errors = req.flash("error");
   if (errors.length) {
-    req.flash("danger", errors)
+    req.flash("danger", errors);
   }
   res.locals.flashes = req.flash(); // flash messages (ex: success, error, info)
+  console.log("res.locals.flashes: ", res.locals.flashes);
   next();
 });
 

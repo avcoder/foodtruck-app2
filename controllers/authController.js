@@ -16,7 +16,17 @@ const logout = (req, res, next) => {
   res.redirect("/");
 };
 
+const isAuthenticated = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+
+  req.flash("danger", "Please login.");
+  res.redirect("/login");
+};
+
 export default {
   login,
   logout,
+  isAuthenticated,
 };
