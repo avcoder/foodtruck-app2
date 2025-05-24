@@ -20,7 +20,7 @@ router.post(
 );
 
 // EDIT TRUCK
-router.get("/trucks/:id/edit", truckController.editTruck);
+router.get("/trucks/:id/edit", catchErrors(truckController.editTruck));
 router.post(
   "/trucks/:id/edit",
   truckController.upload,
@@ -40,7 +40,7 @@ router.get("/tags/:tag", catchErrors(truckController.getStoresByTag));
 
 // LOGIN & REGISTER
 router.get("/login", userController.loginForm);
-router.post("/login", authController.login);
+router.post("/login", catchErrors(authController.login));
 router.get("/reset-password", userController.resetPassword);
 router.get("/register", userController.registerForm);
 router.post(
