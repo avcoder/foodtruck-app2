@@ -24,9 +24,9 @@ const validateRegister = [
 
   (req, res, next) => {
     const errors = validationResult(req);
-    console.log("errors: ", errors);
     if (!errors.isEmpty()) {
-      res.status(400).json({ errors: errors.array() });
+      req.flash("danger", errors.errors.map((err) => err.msg).join(". "));
+      res.render("register", { title: "Register", flashes: req.flash() });
     } else {
       next();
     }
