@@ -14,6 +14,9 @@ const userSchema = mongoose.Schema({
   },
 });
 
+userSchema.virtual('gravatar').get(function() {
+  return `https://api.dicebear.com/9.x/pixel-art/svg?seed=${this.username}`
+})
 userSchema.plugin(plm);
 
 export default mongoose.model("User", userSchema);
