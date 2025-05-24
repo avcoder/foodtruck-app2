@@ -39,23 +39,21 @@
               </a>
             </li>
             <% }) %>
-            <li class="nav-item">
-              <a class="nav-link" href="/register">
-                <span class="me-1 ms-3"><%- u.icon("user-plus") %></span>
-                Register
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/login">
-                <span class="me-1 ms-3"><%- u.icon("log-in") %></span>
-                Login
-              </a>
-            </li>
-            <% if (user) { %>
+
+            <% if (!user) { %>
               <li class="nav-item">
-                <a class="nav-link" href="/logout">
-                  <span class="me-1 ms-3"><%- u.icon("log-out") %></span>
-                  Logout
+                <a class="nav-link" href="/register">
+                  <span class="me-1 ms-3"><%- u.icon("user-plus") %></span>
+                  Register
+                </a>
+              </li>
+            <% } %>
+
+            <% if (!user) { %>
+              <li class="nav-item">
+                <a class="nav-link" href="/login">
+                  <span class="me-1 ms-3"><%- u.icon("log-in") %></span>
+                  Login
                 </a>
               </li>
             <% } %>
@@ -76,7 +74,7 @@
                   <a class="dropdown-item" href="#">Another action</a>
                   <a class="dropdown-item" href="#">Something else here</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Separated link</a>
+                  <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
               </li>
             <% } %>
