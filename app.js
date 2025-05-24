@@ -63,6 +63,10 @@ app.use((req, res, next) => {
   res.locals.u = utils;
   res.locals.user = req.user || null; // if user is logged in, req.user will be set
   res.locals.currentPath = req.path; // current path (ex: /trucks)
+  const errors = req.flash("error");
+  if (errors.length) {
+    req.flash("danger", errors)
+  }
   res.locals.flashes = req.flash(); // flash messages (ex: success, error, info)
   next();
 });

@@ -38,9 +38,9 @@ router.get("/foodtruck/:slug", catchErrors(truckController.getTruckBySlug));
 router.get("/tags", catchErrors(truckController.getStoresByTag));
 router.get("/tags/:tag", catchErrors(truckController.getStoresByTag));
 
-// LOGIN & REGISTER
+// LOGIN, REGISTER, LOGOUT
 router.get("/login", userController.loginForm);
-router.post("/login", catchErrors(authController.login));
+router.post("/login", authController.login);
 router.get("/reset-password", userController.resetPassword);
 router.get("/register", userController.registerForm);
 router.post(
@@ -48,3 +48,4 @@ router.post(
   userController.validateRegister,
   userController.register
 );
+router.get("/logout", authController.logout);
